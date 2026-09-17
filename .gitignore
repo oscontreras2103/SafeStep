@@ -1,0 +1,13 @@
+# PlatformIO
+.pio/
+.cache/
+compile_commands.json
+
+# IDEs y OS
+.vscode/
+.DS_Store
+*.swp
+*~
+
+# Credenciales y Secretos (Seguridad)
+include/secrets.h

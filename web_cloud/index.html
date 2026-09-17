@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SafeStep Cloud | Centro de Monitoreo Global</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="brand-group">
+    <div class="brand-icon">🛡️</div>
+    <div class="brand-text">
+      <h1>SafeStep Cloud</h1>
+      <p>Usar SafeStep es dar pasos seguros</p>
+    </div>
+  </div>
+  <div class="navbar-meta">
+    <div class="cloud-status-badge" id="cloudStatus">
+      <span class="pulse-cloud"></span>
+      <span id="cloudStatusText">Conectado a Firebase</span>
+    </div>
+    <div class="clock-widget">
+      <span id="navBogotaTime">Bogotá: Sincronizando...</span>
+    </div>
+  </div>
+</header>
+
+<main class="main-wrapper">
+
+  <!-- FICHA DEL PACIENTE -->
+  <section class="patient-card">
+    <div class="patient-profile">
+      <div class="patient-avatar">🛏️</div>
+      <div class="patient-details">
+        <span class="tag">Paciente Asignado</span>
+        <div id="patientName" class="patient-name">Cargando paciente...</div>
+        <div class="patient-room">
+          📍 <span id="patientRoom">Habitación --</span>
+        </div>
+      </div>
+    </div>
+    <div class="patient-status-box">
+      <div id="statusPill" class="status-pill status-estable">
+        <span id="statusIcon">●</span>
+        <span id="statusText">Estable / Normal</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CUADRO DE TELEMETRÍA -->
+  <section class="dashboard-grid">
+    <!-- MAGNITUD VECTORIAL -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Magnitud de Impacto</span>
+        <span class="badge-unit">Resultante</span>
+      </div>
+      <div class="metric-hero">
+        <div id="magVal" class="metric-value-huge">0.00</div>
+        <div class="metric-unit">m/s²</div>
+      </div>
+      <div class="impact-bar-track">
+        <div id="magBar" class="impact-bar-fill"></div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--text-muted); margin-top:6px;">
+        <span>0 (Reposo ~9.8)</span>
+        <span>Moderado (20.0)</span>
+        <span>Caída Fuerte (30.0+)</span>
+      </div>
+    </div>
+
+    <!-- ACELERACIÓN TRIAXIAL -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Aceleración por Eje</span>
+        <span class="badge-unit">m/s²</span>
+      </div>
+      <div class="axis-list">
+        <div class="axis-row">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="axis-tag axis-tag-x">X</div>
+            <span style="font-size:0.85rem; color:var(--text-secondary);">Longitudinal</span>
+          </div>
+          <span id="ax" class="axis-val">0.000</span>
+        </div>
+        <div class="axis-row">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="axis-tag axis-tag-y">Y</div>
+            <span style="font-size:0.85rem; color:var(--text-secondary);">Lateral</span>
+          </div>
+          <span id="ay" class="axis-val">0.000</span>
+        </div>
+        <div class="axis-row">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="axis-tag axis-tag-z">Z</div>
+            <span style="font-size:0.85rem; color:var(--text-secondary);">Vertical</span>
+          </div>
+          <span id="az" class="axis-val">0.000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- GIROSCOPIO -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Velocidad Angular</span>
+        <span class="badge-unit">rad/s</span>
+      </div>
+      <div class="axis-list">
+        <div class="axis-row">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="axis-tag axis-tag-x">X</div>
+            <span style="font-size:0.85rem; color:var(--text-secondary);">Roll (Balanceo)</span>
+          </div>
+          <span id="gx" class="axis-val">0.000</span>
+        </div>
+        <div class="axis-row">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="axis-tag axis-tag-y">Y</div>
+            <span style="font-size:0.85rem; color:var(--text-secondary);">Pitch (Cabeceo)</span>
+          </div>
+          <span id="gy" class="axis-val">0.000</span>
+        </div>
+        <div class="axis-row">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="axis-tag axis-tag-z">Z</div>
+            <span style="font-size:0.85rem; color:var(--text-secondary);">Yaw (Guiñada)</span>
+          </div>
+          <span id="gz" class="axis-val">0.000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SISTEMA Y DIAGNÓSTICO CLOUD -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Diagnóstico IoT en la Nube</span>
+        <span class="badge-unit">Google Firebase</span>
+      </div>
+      <div class="diagnostics-list">
+        <div class="diag-row">
+          <span class="diag-label">Temperatura Sensor</span>
+          <span class="diag-val"><span id="temp">--</span> °C</span>
+        </div>
+        <div class="diag-row">
+          <span class="diag-label">Señal Wi-Fi ESP32</span>
+          <span class="diag-val"><span id="rssi">--</span> dBm</span>
+        </div>
+        <div class="diag-row">
+          <span class="diag-label">Tiempo Activo Wearable</span>
+          <span class="diag-val" id="uptime">0s</span>
+        </div>
+        <div class="diag-row">
+          <span class="diag-label">Servidor Remoto</span>
+          <span class="diag-val" style="color:#0284c7;">Google Cloud RTDB</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLA DE HISTORIAL Y EVENTOS BOGOTÁ -->
+  <section class="history-card">
+    <div class="history-header">
+      <div class="history-title-group">
+        <h2>Registro Clínico de Eventos y Caídas</h2>
+        <p>Historial global en la nube con fecha y hora oficial de Bogotá (UTC-5)</p>
+      </div>
+      <button id="btnSoundToggle" class="btn-sound" onclick="toggleAudio()">
+        <span id="soundIcon">🔔</span>
+        <span id="soundLabel">Alarma Sonora Activa</span>
+      </button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="events-table">
+        <thead>
+          <tr>
+            <th>Fecha y Hora (Bogotá)</th>
+            <th>Nivel de Evento</th>
+            <th>Aceleración Pico</th>
+            <th>Notificación WhatsApp</th>
+            <th>Estado Clínico</th>
+          </tr>
+        </thead>
+        <tbody id="alertsBody">
+          <tr>
+            <td colspan="5" class="empty-state">Sincronizando registros con la nube...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<!-- POP-UP MODAL DE ALERTA DE CAÍDA FUERTE -->
+<div id="fallModal" class="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-badge">🚨 EMERGENCIA CLÍNICA SAFESTEP</div>
+    <h2 class="modal-title">¡CAÍDA FUERTE DETECTADA!</h2>
+    <p class="modal-subtitle">Se ha registrado un impacto severo en el sensor que requiere verificación médica presencial.</p>
+    
+    <div class="modal-info-grid">
+      <div class="modal-info-item">
+        <span class="m-label">Paciente</span>
+        <span class="m-val" id="modalPatient">Belen Hortiz</span>
+      </div>
+      <div class="modal-info-item">
+        <span class="m-label">Habitación</span>
+        <span class="m-val" id="modalRoom">Habitación 305</span>
+      </div>
+      <div class="modal-info-item">
+        <span class="m-label">Impacto Registrado</span>
+        <span class="m-val highlight" id="modalImpact">-- m/s²</span>
+      </div>
+      <div class="modal-info-item">
+        <span class="m-label">Hora Bogotá</span>
+        <span class="m-val" id="modalTime">--:--:--</span>
+      </div>
+    </div>
+
+    <div class="modal-alert-action">
+      ⚠️ <strong>ACCIÓN INMEDIATA:</strong> Personal asistencial debe acudir de urgencia al cuarto para valorar y asistir a la paciente.
+    </div>
+
+    <button class="btn-dismiss" onclick="dismissFallAlert()">
+      <span>✓ Atender y Silenciar Alarma</span>
+    </button>
+  </div>
+</div>
+
+<footer>
+  SafeStep Cloud &copy; 2026 — Usar SafeStep es dar pasos seguros | Google Cloud Firebase
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

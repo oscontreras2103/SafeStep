@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "safestep-cloud",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}
