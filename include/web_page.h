@@ -673,8 +673,8 @@ footer {
       </div>
       <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--text-muted); margin-top:6px;">
         <span>0 (Reposo ~9.8)</span>
-        <span>Moderado (20.0)</span>
-        <span>Caída Fuerte (30.0+)</span>
+        <span>Leve (17.0)</span>
+        <span>Caída Fuerte (20.0+)</span>
       </div>
     </div>
 
@@ -983,10 +983,10 @@ function updateData() {
         if (!isModalOpen) {
           showFallModal(j);
         }
-      } else if (j.level === "Moderado") {
+      } else if (j.level === "Moderado" || j.level === "Leve") {
         pill.className = "status-pill status-moderado";
         icon.innerText = "⚠️";
-        txt.innerText = "Posible Caída (Se Recomienda Revisión)";
+        txt.innerText = "Posible Caída / Leve (Revisión Sugerida)";
       } else {
         pill.className = "status-pill status-estable";
         icon.innerText = "●";
@@ -1025,12 +1025,9 @@ function updateData() {
         if (item.level === "Fuerte") {
           levelClass = "badge-fuerte";
           actionTxt = "🚨 Caída detectada: Se solicita atención inmediata";
-        } else if (item.level === "Moderado") {
+        } else if (item.level === "Moderado" || item.level === "Leve") {
           levelClass = "badge-moderado";
           actionTxt = "⚠️ Posible caída: Se recomienda revisión";
-        } else if (item.level === "Leve") {
-          levelClass = "badge-leve";
-          actionTxt = "⚡ Movimiento leve: Monitoreo continuo";
         }
 
         let waBadge = item.sent 

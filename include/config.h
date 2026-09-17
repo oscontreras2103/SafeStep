@@ -15,11 +15,12 @@
 #define ALERT_MIN_INTERVAL_MS 5000   // Tiempo mínimo entre alertas (cooldown)
 #define FIREBASE_SYNC_INTERVAL_MS 1000 // Sincronización continua de telemetría a la nube
 
-// Umbrales de aceleración SafeStep (m/s^2)
-// Moderado: 20.0 a 30.0 m/s² (Posible caída)
-// Fuerte: > 30.0 m/s² (Caída detectada)
-#define THRESH_MODERADO 20.0f
-#define THRESH_FUERTE   30.0f
+// Umbrales de aceleración SafeStep (m/s^2) - Calibrado para bíceps
+// Leve: 17.0 a 20.0 m/s² (Posible caída / impacto leve)
+// Fuerte: > 20.0 m/s² (Caída fuerte confirmada)
+#define THRESH_LEVE     17.0f
+#define THRESH_MODERADO 17.0f
+#define THRESH_FUERTE   20.0f
 #define THRESH_FALL_IMPACT THRESH_FUERTE
 
 // Capacidad del historial web

@@ -266,7 +266,7 @@ void loop() {
         if (mag >= THRESH_FUERTE) {
           currentLevel = "Fuerte";
         } else {
-          currentLevel = "Moderado";
+          currentLevel = "Leve";
         }
 
         String eventTime = getBogotaTimeString();

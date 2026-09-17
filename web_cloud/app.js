@@ -133,10 +133,10 @@ function applyTelemetryData(j) {
     if (!isModalOpen) {
       showFallModal(j);
     }
-  } else if (j.level === "Moderado") {
+  } else if (j.level === "Moderado" || j.level === "Leve") {
     pill.className = "status-pill status-moderado";
     icon.innerText = "⚠️";
-    txt.innerText = "Posible Caída (Se Recomienda Revisión)";
+    txt.innerText = "Posible Caída / Leve (Se Recomienda Revisión)";
   } else {
     pill.className = "status-pill status-estable";
     icon.innerText = "●";
