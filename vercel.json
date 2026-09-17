@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/web_cloud/index.html"
+    },
+    {
+      "source": "/styles.css",
+      "destination": "/web_cloud/styles.css"
+    },
+    {
+      "source": "/app.js",
+      "destination": "/web_cloud/app.js"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/web_cloud/$1"
+    }
+  ]
+}
