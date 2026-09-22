@@ -307,6 +307,14 @@ void loop() {
     float mag = sqrt(last_ax * last_ax + last_ay * last_ay + last_az * last_az);
     lastEventMagnitude = mag;
 
+    // Impresión en monitor serial (5 veces por segundo)
+    static unsigned long lastSerialPrintMillis = 0;
+    if (currentMillis - lastSerialPrintMillis >= 200) {
+      lastSerialPrintMillis = currentMillis;
+      Serial.printf("[MPU6050] Ax:%6.2f Ay:%6.2f Az:%6.2f m/s² | Mag:%6.2f m/s² | Gx:%6.2f Gy:%6.2f Gz:%6.2f | T:%4.1f°C | %s\n",
+                    last_ax, last_ay, last_az, mag, last_gx, last_gy, last_gz, last_temp, currentLevel.c_str());
+    }
+
     if (mag >= THRESH_MODERADO) {
       if (currentMillis - lastAlertMillis >= ALERT_MIN_INTERVAL_MS) {
         lastAlertMillis = currentMillis;
@@ -317,6 +325,8 @@ void loop() {
         } else {
           currentLevel = "Leve";
         }
+
+        Serial.printf("💥 [ALERTA DISPARADA] Magnitud: %.2f m/s² | Severidad: %s\n", mag, currentLevel.c_str());
 
         String eventTime = getBogotaTimeString();
         bool sent = sendWhatsAppAlert(currentLevel, mag, eventTime);
